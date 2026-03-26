@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home1/pw77orange/public_html/toystore
+    - /bin/cp -R * $DEPLOYPATH
