@@ -5,19 +5,19 @@
                 Load this before any redirects or login logic.
                 Both header.php and database-connection.php are inside the includes folder
   */
-
-
+  require_once 'includes/database-connection.php';
+  
 
   /* TO-DO: Include session.php to handle login sessions
           Hint: Use require_once to avoid redeclaring functions if the file is loaded elsewhere.
                 Load this before any redirects or login logic.
                 Both header.php and session.php are inside the includes folder
   */
+  require_once 'includes/session.php';
 
 
 
-  
-  if ($logged_in) {                                       // If already logged in  
+  if ($_SESSION['logged_in'] ?? false) {                                      // If already logged in  
     header('Location: profile.php');                     // Redirect to profile page 
     exit;                                               // Stop further code running
   }    
@@ -36,9 +36,7 @@
 
               Hint: You defined authenticate() earlier in session.php
     */
-
-
-
+  $user = authenticate($pdo, $username, $password);
     if ($user) {                               // If user data returned
       login($user);                           // Call the login function to update session data                                             
       header('Location: profile.php');       // Redirect to profile page 
@@ -51,7 +49,7 @@
             Hint: Include this AFTER redirects so that HTML output does not break header() functions.
                   header.php is inside the includes folder and already connects to the database
   */
-    
+  require_once 'includes/header.php';
 ?> 
 
 <div id="content" class="login-container animate-bottom">
